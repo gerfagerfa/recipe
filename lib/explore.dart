@@ -7,6 +7,9 @@ class Explore extends StatefulWidget {
 }
 
 class _ExploreState extends State<Explore> {
+
+  List<bool> optionSelected = [true, false, false];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,21 +45,22 @@ class _ExploreState extends State<Explore> {
                 buildTextSubTitle('Healthy and nutritious food recipes'),
 
                 SizedBox(
-                  height: 16,
+                  height: 32,
                 ),
 
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     
-                    option('Vegetable', true),
+                    option('Vegetable', 'assets/icons/salad.png', 0),
                     SizedBox(
-                      width: 16,
+                      width: 8,
                     ),
-                    option('Caesar', false),
+                    option('Rice', 'assets/icons/rice.png', 1),
                     SizedBox(
-                      width: 16,
+                      width: 8,
                     ),
-                    option('Fruit', false),
+                    option('Fruit', 'assets/icons/fruit.png', 2),
 
                   ],
                 ),
@@ -70,25 +74,55 @@ class _ExploreState extends State<Explore> {
     );
   }
 
-  Widget option(String text, bool selected){
-    return Expanded(
+  Widget option(String text, String image, int index){
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          optionSelected[index] = !optionSelected[index];
+        });
+      },
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: selected ? Colors.green : Colors.white,
+          color: optionSelected[index] ? Colors.green[600] : Colors.white,
           borderRadius: BorderRadius.all(
-            Radius.circular(15),
+            Radius.circular(20),
           ),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: selected ? Colors.white : Colors.black,
-              fontSize: 14,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 4,
+              offset: Offset(0, 0),
             ),
-          ),
+          ],
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 12),
+        child: Row(
+          children: [
+
+            SizedBox(
+              height: 32,
+              width: 32,
+              child: Image.asset(
+                image,
+                color: optionSelected[index] ? Colors.white : Colors.black,
+              ),
+            ),
+
+            SizedBox(
+              width: 8,
+            ),
+
+            Text(
+              text,
+              style: TextStyle(
+                color: optionSelected[index] ? Colors.white : Colors.black,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );
