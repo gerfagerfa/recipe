@@ -1,5 +1,5 @@
 # Recipe App made with Flutter
-![alt text](https://i.imgur.com/8hyAs0W)
+![alt text](https://i.imgur.com/8hyAs0W.png)
 
 # 🤝 Support Us  
 Buy me a coffe: https://www.buymeacoffee.com/MadeWithFlutter  
