@@ -15,6 +15,7 @@ class Detail extends StatelessWidget {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        brightness: Brightness.light,
         elevation: 0,
         leading: GestureDetector(
           onTap: () {
@@ -115,7 +116,7 @@ class Detail extends StatelessWidget {
             ),
 
             Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, bottom: 64),
+              padding: EdgeInsets.only(left: 16, right: 16, bottom: 80),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

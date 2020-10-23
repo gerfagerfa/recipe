@@ -19,6 +19,7 @@ class _ExploreState extends State<Explore> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        brightness: Brightness.light,
         elevation: 0,
         leading: Icon(
           Icons.sort,
@@ -79,7 +80,7 @@ class _ExploreState extends State<Explore> {
             ),
 
             Container(
-              height: 340,
+              height: 350,
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
@@ -109,7 +110,7 @@ class _ExploreState extends State<Explore> {
             ),
 
             Container(
-              height: 180,
+              height: 190,
               child: PageView(
                 physics: BouncingScrollPhysics(),
                 children: buildPopulars(),
@@ -284,8 +285,8 @@ class _ExploreState extends State<Explore> {
         children: [
 
           Container(
-            height: 150,
-            width: 150,
+            height: 160,
+            width: 160,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(recipe.image),
