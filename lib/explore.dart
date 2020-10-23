@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recipe/constants.dart';
+import 'package:recipe/data.dart';
+import 'package:recipe/detail.dart';
 import 'package:recipe/shared.dart';
 
 class Explore extends StatefulWidget {
@@ -13,7 +16,7 @@ class _ExploreState extends State<Explore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -31,45 +34,90 @@ class _ExploreState extends State<Explore> {
           ),
         ],
       ),
-      body: Column(
-        children: [
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                
-                buildTextTitle('Springy Salads'),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  
+                  buildTextTitleVariation1('Springy Salads'),
 
-                buildTextSubTitle('Healthy and nutritious food recipes'),
+                  buildTextSubTitleVariation1('Healthy and nutritious food recipes'),
 
-                SizedBox(
-                  height: 32,
-                ),
+                  SizedBox(
+                    height: 32,
+                  ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    
-                    option('Vegetable', 'assets/icons/salad.png', 0),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    option('Rice', 'assets/icons/rice.png', 1),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    option('Fruit', 'assets/icons/fruit.png', 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      
+                      option('Vegetable', 'assets/icons/salad.png', 0),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      option('Rice', 'assets/icons/rice.png', 1),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      option('Fruit', 'assets/icons/fruit.png', 2),
 
-                  ],
-                ),
+                    ],
+                  ),
 
-              ],
+                ],
+              ),
             ),
-          )
 
-        ],
+            SizedBox(
+              height: 24,
+            ),
+
+            Container(
+              height: 340,
+              child: ListView(
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                children: buildRecipes(),
+              ),
+            ),
+
+            SizedBox(
+              height: 16,
+            ),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+
+                  buildTextTitleVariation2('Popular', false),
+
+                  SizedBox(
+                    width: 8,
+                  ),
+
+                  buildTextTitleVariation2('Food', true),
+
+                ],
+              ),
+            ),
+
+            Container(
+              height: 180,
+              child: PageView(
+                physics: BouncingScrollPhysics(),
+                children: buildPopulars(),
+              ),
+            ),
+
+          ],
+        ),
       ),
     );
   }
@@ -84,15 +132,15 @@ class _ExploreState extends State<Explore> {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: optionSelected[index] ? Colors.green[600] : Colors.white,
+          color: optionSelected[index] ? kPrimaryColor : Colors.white,
           borderRadius: BorderRadius.all(
             Radius.circular(20),
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withOpacity(0.2),
               spreadRadius: 2,
-              blurRadius: 4,
+              blurRadius: 8,
               offset: Offset(0, 0),
             ),
           ],
@@ -124,6 +172,159 @@ class _ExploreState extends State<Explore> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  List<Widget> buildRecipes(){
+    List<Widget> list = [];
+    for (var i = 0; i < getRecipes().length; i++) {
+      list.add(buildRecipe(getRecipes()[i], i));
+    }
+    return list;
+  }
+
+  Widget buildRecipe(Recipe recipe, int index){
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Detail(recipe: recipe)),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 8,
+              offset: Offset(0, 0),
+            ),
+          ],
+        ),
+        margin: EdgeInsets.only(right: index != null ? 16 : 0, left: index == 0 ? 16 : 0, bottom: 16, top: 8),
+        padding: EdgeInsets.all(16),
+        width: 220,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+
+            Expanded(
+              child: Hero(
+                tag: recipe.image,
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(recipe.image),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: 8,
+            ),
+
+            buildRecipeTitle(recipe.title),
+
+            buildTextSubTitleVariation2(recipe.description),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+
+                buildCalories(recipe.calories.toString() + " Kcal"),
+
+                Icon(
+                  Icons.favorite_border,
+                )
+
+              ],
+            ),
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<Widget> buildPopulars(){
+    List<Widget> list = [];
+    for (var i = 0; i < getRecipes().length; i++) {
+      list.add(buildPopular(getRecipes()[i]));
+    }
+    return list;
+  }
+
+  Widget buildPopular(Recipe recipe){
+    return Container(
+      margin: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: Offset(0, 0),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+
+          Container(
+            height: 150,
+            width: 150,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(recipe.image),
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+          ),
+
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  buildRecipeTitle(recipe.title),
+
+                  buildRecipeSubTitle(recipe.description),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+
+                      buildCalories(recipe.calories.toString() + " Kcal"),
+
+                      Icon(
+                        Icons.favorite_border,
+                      )
+
+                    ],
+                  ),
+
+                ],
+              ),
+            ),
+          ),
+
+        ],
       ),
     );
   }
