@@ -29,17 +29,6 @@ buildTextTitleVariation2(String text, bool opacity){
   );
 }
 
-buildTextTitleVariation3(String text){
-  return Text(
-    text,
-    style: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-      color: Colors.black,
-    ),
-  );
-}
-
 buildTextSubTitleVariation1(String text){
   return Padding(
     padding: EdgeInsets.only(bottom: 8),
