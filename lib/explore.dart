@@ -137,14 +137,7 @@ class _ExploreState extends State<Explore> {
           borderRadius: BorderRadius.all(
             Radius.circular(20),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 2,
-              blurRadius: 8,
-              offset: Offset(0, 0),
-            ),
-          ],
+          boxShadow: [kBoxShadow],
         ),
         padding: EdgeInsets.symmetric(horizontal: 12),
         child: Row(
@@ -199,16 +192,9 @@ class _ExploreState extends State<Explore> {
           borderRadius: BorderRadius.all(
             Radius.circular(20),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 2,
-              blurRadius: 8,
-              offset: Offset(0, 0),
-            ),
-          ],
+          boxShadow: [kBoxShadow],
         ),
-        margin: EdgeInsets.only(right: index != null ? 16 : 0, left: index == 0 ? 16 : 0, bottom: 16, top: 8),
+        margin: EdgeInsets.only(right: 16, left: index == 0 ? 16 : 0, bottom: 16, top: 8),
         padding: EdgeInsets.all(16),
         width: 220,
         child: Column(
@@ -272,14 +258,7 @@ class _ExploreState extends State<Explore> {
         borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 8,
-            offset: Offset(0, 0),
-          ),
-        ],
+        boxShadow: [kBoxShadow],
       ),
       child: Row(
         children: [

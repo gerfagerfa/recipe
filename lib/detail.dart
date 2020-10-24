@@ -181,14 +181,7 @@ class Detail extends StatelessWidget {
         borderRadius: BorderRadius.all(
           Radius.circular(50),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 8,
-            offset: Offset(0, 0),
-          ),
-        ],
+        boxShadow: [kBoxShadow],
       ),
       child: Row(
         children: [
@@ -199,14 +192,7 @@ class Detail extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 2,
-                  blurRadius: 8,
-                  offset: Offset(0, 0),
-                ),
-              ],
+              boxShadow: [kBoxShadow],
             ),
             child: Center(
               child: Text(
